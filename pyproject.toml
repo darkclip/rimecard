@@ -1,6 +1,6 @@
 [project]
 name = "rimecard"
-version = "0.1.1"
+version = "0.1.2"
 description = "Extract vcf vcard contacts to rime pinyin dictionary."
 license = "MIT"
 license-files = ["LICENSE*"]
