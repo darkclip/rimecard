@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Install uv
+      - name: Install uv with python ${{ matrix.python-version }}
         uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
