@@ -15,9 +15,9 @@ Extract vcf vcard contacts to rime pinyin dictionary.
 ## 使用
 
 - `-i`定义输入文件
-- `-o`定义输出文件，未定义输出文件时屏幕输出
+- `-o`定义输出文件，未定义时屏幕输出
 - `-e`定义输出编码（默认utf-8）
 - `-l`定义字符数限制（默认3）
 
-`python3 -m rimecard -i vcard.vcf [-o OUTPUT] [-e ENCODING] [-l WORDS_LIMIT]`
+`python3 -m rimecard -i vcard.vcf *.vcf [-o OUTPUT] [-e ENCODING] [-l WORDS_LIMIT]`
 

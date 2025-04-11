@@ -26,34 +26,32 @@ def detect_file_encoding(file_path: Path) -> tuple[str | None, float]:
 
 
 def vcf2dict(args: argparse.Namespace) -> None:
-    input: Path | None = getattr(args, 'input', None)
+    input: list[Path] = getattr(args, 'input', [])
     output: Path | None = getattr(args, 'output', None)
     output_encoding = getattr(args, 'encoding', 'utf-8')
     words_limit = getattr(args, 'limit', 0)
-    if input is None:
+    if not input:
         print('Input file not specified.')
         sys.exit(1)
     if words_limit > 0:
         print(f'Words limit: {words_limit}')
 
-    encoding, confidence = detect_file_encoding(input)
-    if confidence < 0.8:
-        print('Encoding confidence is low, use utf-8 as default.')
-        encoding = 'utf-8'
-
-    output_lines = ''
-    with input.open('r', encoding=encoding) as ifp:
-        output_lines += f'# coding: {output_encoding}\n---\n'
-
-        for line in ifp:
-            if line.startswith('FN:'):
-                content = line[3:].strip()
-                words = content.split(' ')
-                name = ''.join(words)
-                pinyin = ' '.join(lazy_pinyin(name))
-                if len(name) > words_limit:
-                    continue
-                output_lines += f'{name}\t{pinyin}\t1\n'
+    output_lines = f'# coding: {output_encoding}\n---\n'
+    for input_file in input:
+        encoding, confidence = detect_file_encoding(input_file)
+        if confidence < 0.8:
+            print('Encoding confidence is low, use utf-8 as default.')
+            encoding = 'utf-8'
+        with input_file.open('r', encoding=encoding) as ifp:
+            for line in ifp:
+                if line.startswith('FN:'):
+                    content = line[3:].strip()
+                    words = content.split(' ')
+                    name = ''.join(words)
+                    pinyin = ' '.join(lazy_pinyin(name))
+                    if len(name) > words_limit:
+                        continue
+                    output_lines += f'{name}\t{pinyin}\t1\n'
 
     if output is None:
         print()
@@ -74,7 +72,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument('-i', '--input', type=Path, required=True, help='file to read')
+    parser.add_argument(
+        '-i', '--input', type=Path, required=True, nargs='+', help='files to read'
+    )
     parser.add_argument('-o', '--output', type=Path, help='file to write')
     parser.add_argument(
         '-e', '--encoding', type=str, default='utf-8', help='output file encoding'
