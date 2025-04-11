@@ -6,7 +6,7 @@ license = "MIT"
 license-files = ["LICENSE*"]
 keywords = ["rime", "vcf", "vcard", "pinyin", "dict", "dictionary"]
 readme = "README.md"
-authors = [{ name = "darkclip", email = "darkclip@users.noreply.github.com" }]
+authors = [{ name = "darkclip", email = "darkclip@hanv.dev" }]
 requires-python = ">=3.8"
 dependencies = ["chardet>=5.2.0", "pypinyin>=0.54.0"]
 
