@@ -2,9 +2,9 @@
 name = "rimecard"
 version = "0.1.2"
 description = "Extract vcf vcard contacts to rime pinyin dictionary."
+keywords = ["rime", "vcf", "vcard", "pinyin", "dict", "dictionary"]
 license = "MIT"
 license-files = ["LICENSE*"]
-keywords = ["rime", "vcf", "vcard", "pinyin", "dict", "dictionary"]
 readme = "README.md"
 authors = [{ name = "darkclip", email = "darkclip@hanv.dev" }]
 requires-python = ">=3.8"
