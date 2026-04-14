@@ -48,7 +48,7 @@ def vcf2dict(args: argparse.Namespace) -> None:
                     content = line[3:].strip()
                     words = content.split(' ')
                     name = ''.join(words)
-                    pinyin = ' '.join(lazy_pinyin(name))
+                    pinyin = ''.join(lazy_pinyin(name))
                     if len(name) > words_limit:
                         continue
                     output_lines += f'{name}\t{pinyin}\t1\n'
